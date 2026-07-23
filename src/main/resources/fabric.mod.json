@@ -8,8 +8,8 @@
     "kirushkinx"
   ],
   "contact": {
-    "sources": "https://github.com/kiruhkinx/catlean-self-destruct",
-    "issues": "https://github.com/kiruhkinx/catlean-self-destruct/issues"
+    "sources": "https://github.com/kirushkinx/catlean-self-destruct",
+    "issues": "https://github.com/kirushkinx/catlean-self-destruct/issues"
   },
   "environment": "client",
   "entrypoints": {
