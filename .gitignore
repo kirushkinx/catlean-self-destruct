@@ -1,0 +1,16 @@
+# Gradle / Kotlin
+.gradle/
+.kotlin/
+build/
+out/
+
+# IntelliJ
+.idea/
+*.iml
+
+# OS
+.DS_Store
+
+# dev run dir
+/run/*
+!/run/mods/

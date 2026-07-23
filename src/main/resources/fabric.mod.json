@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "${archives_base_name}",
+  "version": "${version}",
+  "name": "CatLean Self-Destruct",
+  "description": "Kill switch addon for catlean.",
+  "authors": [
+    "kirushkinx"
+  ],
+  "contact": {
+    "sources": "https://github.com/kiruhkinx/catlean-self-destruct",
+    "issues": "https://github.com/kiruhkinx/catlean-self-destruct/issues"
+  },
+  "environment": "client",
+  "entrypoints": {
+    "catlean:addon": [
+      {
+        "adapter": "kotlin",
+        "value": "ru.kirushkinx.selfdestruct.SelfDestruct"
+      }
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-language-kotlin": "*",
+    "fabric-api": "*",
+    "minecraft": "~${minecraft_version}",
+    "catlean": "*"
+  }
+}
