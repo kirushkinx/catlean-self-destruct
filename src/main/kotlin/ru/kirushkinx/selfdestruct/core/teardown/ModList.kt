@@ -15,12 +15,12 @@ object ModList {
     data class Report(val targeted: Int, val menu: Int, val loader: Int)
 
     fun hide(): Report {
-        val ids = catleanMods()
+        val ids = catleanIds()
         return Report(ids.size, fromModMenu(ids), fromLoader(ids))
     }
 
     // the client plus every mod that registers a catlean:addon entrypoint
-    private fun catleanMods(): Set<String> {
+    fun catleanIds(): Set<String> {
         val ids = linkedSetOf(CLIENT)
         runCatching {
             FabricLoader.getInstance()

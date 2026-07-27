@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft
 import ru.kirushkinx.selfdestruct.SelfDestruct
 import ru.kirushkinx.selfdestruct.SelfDestructModule
 import ru.kirushkinx.selfdestruct.core.teardown.Bus
+import ru.kirushkinx.selfdestruct.core.teardown.Entrypoints
 import ru.kirushkinx.selfdestruct.core.teardown.MixinConfigs
 import ru.kirushkinx.selfdestruct.core.teardown.ModList
 import ru.kirushkinx.selfdestruct.core.teardown.ModuleState
@@ -43,6 +44,7 @@ object Detonator {
         Renderer.refresh(mc)
         ModList.hide()
             .let { Logger.info("mod list: hid ${it.targeted} catlean mods (${it.menu} modmenu, ${it.loader} loader)") }
+        Entrypoints.scrub().let { Logger.info("entrypoints: dropped $it containers") }
 
         Logger.info("teardown complete")
     }

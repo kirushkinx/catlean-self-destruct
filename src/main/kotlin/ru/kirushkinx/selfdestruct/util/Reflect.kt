@@ -32,6 +32,7 @@ object Reflect {
         val type = target as? Class<*> ?: target?.javaClass ?: return null
         val receiver = if (target is Class<*>) null else target
         val handle = type.methods.firstOrNull { it.name == method && it.parameterCount == args.size } ?: return null
+        runCatching { handle.isAccessible = true } // package-private loader classes
         return runCatching { handle.invoke(receiver, *args) }.getOrNull()
     }
 
