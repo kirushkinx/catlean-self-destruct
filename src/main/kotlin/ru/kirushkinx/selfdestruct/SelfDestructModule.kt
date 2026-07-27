@@ -5,7 +5,7 @@ import ru.kirushkinx.selfdestruct.core.Detonator
 import ru.kirushkinx.selfdestruct.util.Logger
 import su.catlean.api.addon.feature.AddonModule
 
-object SelfDestructModule : AddonModule(SelfDestruct.ID, "misc", listOf("sd", "kill", "killswitch")) {
+object SelfDestructModule : AddonModule(SelfDestruct.ID, "misc", listOf("sd", "kill", "killswitch", "panic")) {
 
     enum class Trigger {
         INSTANT, CONFIRM,
