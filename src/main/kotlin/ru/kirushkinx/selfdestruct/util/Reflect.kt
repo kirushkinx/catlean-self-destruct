@@ -51,4 +51,42 @@ object Reflect {
         }
         return result
     }
+
+    /** Declared field up the hierarchy, left inaccessible. */
+    fun raw(type: Class<*>, name: String): Field? {
+        var current: Class<*>? = type
+        while (current != null) {
+            runCatching { current.getDeclaredField(name) }.getOrNull()?.let { return it }
+            current = current.superclass
+        }
+        return null
+    }
+
+    /** Reads a field through Unsafe, for JDK-internal types where setAccesible is blocked. */
+    fun forcedValue(target: Any?, name: String): Any? {
+        val u = unsafe ?: return null
+        val type = target as? Class<*> ?: target?.javaClass ?: return null
+        val field = raw(type, name) ?: return null
+        return runCatching {
+            if (Modifier.isStatic(field.modifiers)) {
+                val base = unsafeCall(u, "staticFieldBase", field)
+                unsafeCall(u, "getObject", base, unsafeCall(u, "staticFieldOffset", field) as Long)
+            } else {
+                unsafeCall(u, "getObject", target, unsafeCall(u, "objectFieldOffset", field) as Long)
+            }
+        }.getOrNull()
+    }
+
+    private val unsafe: Any? by lazy {
+        runCatching {
+            val field = Class.forName("sun.misc.Unsafe").getDeclaredField("theUnsafe")
+            field.isAccessible = true
+            field.get(null)
+        }.getOrNull()
+    }
+
+    private fun unsafeCall(unsafe: Any, name: String, vararg args: Any?): Any? {
+        val method = unsafe.javaClass.methods.firstOrNull { it.name == name && it.parameterCount == args.size } ?: return null
+        return method.invoke(unsafe, *args)
+    }
 }

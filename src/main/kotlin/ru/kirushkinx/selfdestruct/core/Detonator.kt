@@ -6,6 +6,7 @@ import ru.kirushkinx.selfdestruct.SelfDestructModule
 import ru.kirushkinx.selfdestruct.core.teardown.Bus
 import ru.kirushkinx.selfdestruct.core.teardown.ChatLog
 import ru.kirushkinx.selfdestruct.core.teardown.Entrypoints
+import ru.kirushkinx.selfdestruct.core.teardown.JarRelease
 import ru.kirushkinx.selfdestruct.core.teardown.MixinConfigs
 import ru.kirushkinx.selfdestruct.core.teardown.ModList
 import ru.kirushkinx.selfdestruct.core.teardown.ModuleState
@@ -45,12 +46,14 @@ object Detonator {
         MixinConfigs.strip().let { Logger.info("mixins: stripped ${it.configs} configs, ${it.targets} targets") }
         RenderFlags.reset()
         Renderer.refresh(mc)
+        JarRelease.collect() // needs the loader entries ModList.hide drops
         ModList.hide()
             .let { Logger.info("mod list: hid ${it.targeted} catlean mods (${it.menu} modmenu, ${it.loader} loader)") }
         Resources.reload(mc)
         Entrypoints.scrub().let { Logger.info("entrypoints: dropped $it containers") }
         Textures.release(mc).let { Logger.info("textures: released $it") }
         ChatLog.scrub(mc).let { Logger.info("chat: scrubbed $it lines") }
+        JarRelease.release().let { Logger.info("jars: released $it handles") }
 
         Logger.info("teardown complete")
     }
