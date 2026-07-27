@@ -38,6 +38,9 @@ object ModList {
             val mods = Reflect.staticValue(type, name) as? MutableMap<*, *> ?: continue
             for (id in ids) if (mods.remove(id) != null) removed++
         }
+        @Suppress("UNCHECKED_CAST")
+        val factories = Reflect.staticValue(type, "configScreenFactories") as? MutableMap<Any?, Any?>
+        for (id in ids) if (runCatching { factories?.remove(id) }.getOrNull() != null) removed++
         unparent(type, ids)
         Reflect.call(type, "clearModCountCache")
         return removed
