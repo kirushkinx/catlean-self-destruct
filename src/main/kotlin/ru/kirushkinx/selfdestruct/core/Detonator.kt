@@ -10,6 +10,7 @@ import ru.kirushkinx.selfdestruct.core.teardown.ModList
 import ru.kirushkinx.selfdestruct.core.teardown.ModuleState
 import ru.kirushkinx.selfdestruct.core.teardown.RenderFlags
 import ru.kirushkinx.selfdestruct.core.teardown.Renderer
+import ru.kirushkinx.selfdestruct.core.teardown.Resources
 import ru.kirushkinx.selfdestruct.core.teardown.Screens
 import ru.kirushkinx.selfdestruct.util.Logger
 import java.util.concurrent.atomic.AtomicBoolean
@@ -44,6 +45,7 @@ object Detonator {
         Renderer.refresh(mc)
         ModList.hide()
             .let { Logger.info("mod list: hid ${it.targeted} catlean mods (${it.menu} modmenu, ${it.loader} loader)") }
+        Resources.reload(mc)
         Entrypoints.scrub().let { Logger.info("entrypoints: dropped $it containers") }
 
         Logger.info("teardown complete")
