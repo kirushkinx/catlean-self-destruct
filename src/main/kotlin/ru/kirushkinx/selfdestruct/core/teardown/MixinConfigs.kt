@@ -1,5 +1,6 @@
 package ru.kirushkinx.selfdestruct.core.teardown
 
+import ru.kirushkinx.selfdestruct.util.Constants.CATLEAN
 import ru.kirushkinx.selfdestruct.util.Reflect
 
 /** Empties the client's mixin configs */
@@ -7,7 +8,6 @@ object MixinConfigs {
 
     private const val CONFIG = "org.spongepowered.asm.mixin.transformer.Config"
     private const val MIXINS = "org.spongepowered.asm.mixin.Mixins"
-    private const val MARKER = "catlean"
 
     // mixinMapping is the live lookup MixinProcessor reads per class load
     private val DATA = listOf(
@@ -46,7 +46,7 @@ object MixinConfigs {
         Reflect.load(MIXINS)?.let { Reflect.call(it, "getConfigs") } as? MutableSet<Any>
 
     private fun isClient(handle: Any, config: Any): Boolean =
-        string(handle, "getName").contains(MARKER, ignoreCase = true) ||
+        string(handle, "getName").contains(CATLEAN, ignoreCase = true) ||
             string(config, "getMixinPackage").startsWith(Reflect.CLIENT_PACKAGE)
 
     private fun targetCount(config: Any): Int =

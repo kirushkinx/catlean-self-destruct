@@ -1,11 +1,10 @@
 package ru.kirushkinx.selfdestruct.core.teardown
 
+import ru.kirushkinx.selfdestruct.util.Constants.CATLEAN
 import ru.kirushkinx.selfdestruct.util.Reflect
 
 /** Interrupts background threads the client spawned. */
 object Threads {
-
-    private const val MARKER = "catlean"
 
     fun stop(): Int {
         val current = Thread.currentThread()
@@ -19,7 +18,7 @@ object Threads {
     }
 
     private fun isClient(thread: Thread, stack: Array<StackTraceElement>): Boolean {
-        if (thread.name.contains(MARKER, ignoreCase = true)) return true
+        if (thread.name.contains(CATLEAN, ignoreCase = true)) return true
         val task = Reflect.forcedValue(thread, "holder")?.let { Reflect.forcedValue(it, "task") }
         if (task != null && Reflect.isClient(task.javaClass)) return true
         return stack.any { it.className.startsWith(Reflect.CLIENT_PACKAGE) }

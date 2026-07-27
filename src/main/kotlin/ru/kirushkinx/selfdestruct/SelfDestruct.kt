@@ -1,5 +1,6 @@
 package ru.kirushkinx.selfdestruct
 
+import ru.kirushkinx.selfdestruct.util.Constants.SELF_DESTRUCT
 import ru.kirushkinx.selfdestruct.util.Logger
 import su.catlean.api.addon.CatLeanAddon
 import su.catlean.api.addon.CatLeanAddonLogger
@@ -7,7 +8,7 @@ import su.catlean.api.addon.CatLeanApi
 
 object SelfDestruct : CatLeanAddon {
 
-    const val ID = "self-destruct"
+    const val ID = SELF_DESTRUCT
 
     @Volatile
     var api: CatLeanApi? = null

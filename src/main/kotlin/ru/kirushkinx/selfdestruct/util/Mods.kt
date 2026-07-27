@@ -5,12 +5,11 @@ import su.catlean.api.addon.CatLeanAddon
 
 object Mods {
 
-    private const val CLIENT = "catlean"
     private const val ADDON_ENTRYPOINT = "catlean:addon"
 
     // the client plus every mod that registers a catlean:addon entrypoint
     fun catleanIds(): Set<String> {
-        val ids = linkedSetOf(CLIENT)
+        val ids = linkedSetOf(Constants.CATLEAN)
         runCatching {
             FabricLoader.getInstance()
                 .getEntrypointContainers(ADDON_ENTRYPOINT, CatLeanAddon::class.java)

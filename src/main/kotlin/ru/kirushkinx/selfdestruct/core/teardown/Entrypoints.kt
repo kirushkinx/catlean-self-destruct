@@ -1,12 +1,11 @@
 package ru.kirushkinx.selfdestruct.core.teardown
 
+import ru.kirushkinx.selfdestruct.util.Constants.LOADER
 import ru.kirushkinx.selfdestruct.util.Mods
 import ru.kirushkinx.selfdestruct.util.Reflect
 
 /** Drops the loader's cached entrypoint containers, which keep the client's initializers and this addon alive. */
 object Entrypoints {
-
-    private const val LOADER = "net.fabricmc.loader.impl.FabricLoaderImpl"
 
     fun scrub(): Int {
         val type = Reflect.load(LOADER) ?: return 0

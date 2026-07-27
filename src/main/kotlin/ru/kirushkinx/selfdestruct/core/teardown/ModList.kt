@@ -1,5 +1,6 @@
 package ru.kirushkinx.selfdestruct.core.teardown
 
+import ru.kirushkinx.selfdestruct.util.Constants.LOADER
 import ru.kirushkinx.selfdestruct.util.Mods
 import ru.kirushkinx.selfdestruct.util.Reflect
 
@@ -7,7 +8,6 @@ import ru.kirushkinx.selfdestruct.util.Reflect
 object ModList {
 
     private const val MODMENU = "com.terraformersmc.modmenu.ModMenu"
-    private const val LOADER = "net.fabricmc.loader.impl.FabricLoaderImpl"
 
     data class Report(val targeted: Int, val menu: Int, val loader: Int)
 

@@ -1,12 +1,11 @@
 package ru.kirushkinx.selfdestruct.core.teardown
 
 import net.minecraft.client.Minecraft
+import ru.kirushkinx.selfdestruct.util.Constants.SELF_DESTRUCT
 import ru.kirushkinx.selfdestruct.util.Reflect
 
 /** Removes our own lines from the in-memory chat history. */
 object ChatLog {
-
-    private const val MARKER = "self-destruct"
 
     fun scrub(mc: Minecraft): Int {
         val chat = mc.gui.hud.chat
@@ -21,7 +20,7 @@ object ChatLog {
     private fun mentions(message: Any?): Boolean {
         val content = Reflect.call(message, "content") ?: return false
         val text = Reflect.call(content, "getString") as? String ?: return false
-        return text.contains(MARKER, ignoreCase = true)
+        return text.contains(SELF_DESTRUCT, ignoreCase = true)
     }
 
     private fun drop(list: MutableCollection<*>?, predicate: (Any?) -> Boolean): Int {

@@ -1,6 +1,8 @@
 package ru.kirushkinx.selfdestruct.core.teardown
 
 import net.minecraft.client.Minecraft
+import ru.kirushkinx.selfdestruct.util.Constants.CATLEAN
+import ru.kirushkinx.selfdestruct.util.Constants.SELF_DESTRUCT
 import ru.kirushkinx.selfdestruct.util.Reflect
 import java.nio.file.Files
 import java.nio.file.Path
@@ -8,7 +10,7 @@ import java.nio.file.Path
 /** Removes catlean lines from the live game log so the on-disk file carries no trace of the client. */
 object Log {
 
-    private val MARKERS = listOf("catlean", "self-destruct")
+    private val MARKERS = listOf(CATLEAN, SELF_DESTRUCT)
     private const val LATEST = "logs/latest.log"
     private const val FILE_MANAGER = "org.apache.logging.log4j.core.appender.RandomAccessFileManager"
 
