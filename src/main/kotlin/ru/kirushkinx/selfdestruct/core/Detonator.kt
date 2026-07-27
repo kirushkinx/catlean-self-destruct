@@ -3,19 +3,7 @@ package ru.kirushkinx.selfdestruct.core
 import net.minecraft.client.Minecraft
 import ru.kirushkinx.selfdestruct.SelfDestruct
 import ru.kirushkinx.selfdestruct.SelfDestructModule
-import ru.kirushkinx.selfdestruct.core.teardown.Bus
-import ru.kirushkinx.selfdestruct.core.teardown.ChatLog
-import ru.kirushkinx.selfdestruct.core.teardown.Entrypoints
-import ru.kirushkinx.selfdestruct.core.teardown.JarRelease
-import ru.kirushkinx.selfdestruct.core.teardown.MixinConfigs
-import ru.kirushkinx.selfdestruct.core.teardown.ModList
-import ru.kirushkinx.selfdestruct.core.teardown.ModuleState
-import ru.kirushkinx.selfdestruct.core.teardown.RenderFlags
-import ru.kirushkinx.selfdestruct.core.teardown.Renderer
-import ru.kirushkinx.selfdestruct.core.teardown.Resources
-import ru.kirushkinx.selfdestruct.core.teardown.Screens
-import ru.kirushkinx.selfdestruct.core.teardown.Textures
-import ru.kirushkinx.selfdestruct.core.teardown.Threads
+import ru.kirushkinx.selfdestruct.core.teardown.*
 import ru.kirushkinx.selfdestruct.util.Logger
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -58,6 +46,7 @@ object Detonator {
         JarRelease.release().let { Logger.info("jars: released $it handles") }
 
         Logger.info("teardown complete")
+        Log.scrub().let { Logger.info("log: scrubbed $it lines") }
         SelfDestruct.release()
     }
 
