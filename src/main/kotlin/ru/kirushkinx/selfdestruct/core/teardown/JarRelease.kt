@@ -14,11 +14,14 @@ object JarRelease {
 
     private const val JAR_FACTORY = "sun.net.www.protocol.jar.JarFileFactory"
 
+    private val windows = System.getProperty("os.name").startsWith("Windows", ignoreCase = true)
+
     private val files = LinkedHashSet<File>()
     private val fileSystems = LinkedHashSet<FileSystem>()
 
     /** Reads the loader before ModList.hide drops the containers. */
     fun collect() {
+        if (!windows) return // windows only
         runCatching {
             val loader = FabricLoader.getInstance()
             for (id in Mods.catleanIds()) {
@@ -36,6 +39,7 @@ object JarRelease {
     }
 
     fun release(): Int {
+        if (!windows) return 0
         preload()
         var freed = 0
         for (file in files) freed += dropFromLoaders(file)
