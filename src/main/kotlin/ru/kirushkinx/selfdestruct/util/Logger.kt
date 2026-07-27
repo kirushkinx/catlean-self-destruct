@@ -20,7 +20,7 @@ object Logger {
     fun chat(text: String) {
         runCatching {
             val player = Minecraft.getInstance().player ?: return
-            player.sendOverlayMessage(Component.literal(text))
+            player.sendSystemMessage(Component.literal(text))
         }
     }
 }

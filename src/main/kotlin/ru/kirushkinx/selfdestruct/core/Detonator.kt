@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft
 import ru.kirushkinx.selfdestruct.SelfDestruct
 import ru.kirushkinx.selfdestruct.SelfDestructModule
 import ru.kirushkinx.selfdestruct.core.teardown.Bus
+import ru.kirushkinx.selfdestruct.core.teardown.ChatLog
 import ru.kirushkinx.selfdestruct.core.teardown.Entrypoints
 import ru.kirushkinx.selfdestruct.core.teardown.MixinConfigs
 import ru.kirushkinx.selfdestruct.core.teardown.ModList
@@ -49,6 +50,7 @@ object Detonator {
         Resources.reload(mc)
         Entrypoints.scrub().let { Logger.info("entrypoints: dropped $it containers") }
         Textures.release(mc).let { Logger.info("textures: released $it") }
+        ChatLog.scrub(mc).let { Logger.info("chat: scrubbed $it lines") }
 
         Logger.info("teardown complete")
     }
