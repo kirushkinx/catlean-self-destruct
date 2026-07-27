@@ -58,6 +58,7 @@ object Detonator {
         JarRelease.release().let { Logger.info("jars: released $it handles") }
 
         Logger.info("teardown complete")
+        SelfDestruct.release()
     }
 
     private fun onClient(block: () -> Unit) = Minecraft.getInstance().execute(block)

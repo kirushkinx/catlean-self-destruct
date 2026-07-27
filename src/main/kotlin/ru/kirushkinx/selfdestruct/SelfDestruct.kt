@@ -31,4 +31,10 @@ object SelfDestruct : CatLeanAddon {
         ready = true
         Logger.info("self-destruct initialised")
     }
+
+    fun release() {
+        ready = false
+        api = null
+        addonLogger = null
+    }
 }
