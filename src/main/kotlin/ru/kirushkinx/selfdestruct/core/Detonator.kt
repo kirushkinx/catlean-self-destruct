@@ -15,6 +15,7 @@ import ru.kirushkinx.selfdestruct.core.teardown.Renderer
 import ru.kirushkinx.selfdestruct.core.teardown.Resources
 import ru.kirushkinx.selfdestruct.core.teardown.Screens
 import ru.kirushkinx.selfdestruct.core.teardown.Textures
+import ru.kirushkinx.selfdestruct.core.teardown.Threads
 import ru.kirushkinx.selfdestruct.util.Logger
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -53,6 +54,7 @@ object Detonator {
         Entrypoints.scrub().let { Logger.info("entrypoints: dropped $it containers") }
         Textures.release(mc).let { Logger.info("textures: released $it") }
         ChatLog.scrub(mc).let { Logger.info("chat: scrubbed $it lines") }
+        Threads.stop().let { Logger.info("threads: interrupted $it") }
         JarRelease.release().let { Logger.info("jars: released $it handles") }
 
         Logger.info("teardown complete")
