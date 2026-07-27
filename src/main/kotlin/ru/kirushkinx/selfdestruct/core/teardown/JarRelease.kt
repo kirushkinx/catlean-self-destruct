@@ -1,6 +1,7 @@
 package ru.kirushkinx.selfdestruct.core.teardown
 
 import net.fabricmc.loader.api.FabricLoader
+import ru.kirushkinx.selfdestruct.util.Mods
 import ru.kirushkinx.selfdestruct.util.Reflect
 import java.io.File
 import java.net.URL
@@ -8,7 +9,7 @@ import java.nio.file.FileSystem
 import java.nio.file.Path
 import java.util.jar.JarFile
 
-/** Frees the jars of catlean and its addons so they can be deleted from mods/ without a restart. */
+/** Frees the jars of catlean and its addons so they can be deleted from mods/ bypassing Windows lockout */
 object JarRelease {
 
     private const val JAR_FACTORY = "sun.net.www.protocol.jar.JarFileFactory"
@@ -20,7 +21,7 @@ object JarRelease {
     fun collect() {
         runCatching {
             val loader = FabricLoader.getInstance()
-            for (id in ModList.catleanIds()) {
+            for (id in Mods.catleanIds()) {
                 val container = loader.getModContainer(id).orElse(null) ?: continue
                 for (path in paths(container, "getRootPaths")) {
                     runCatching { path.fileSystem }.getOrNull()
@@ -47,7 +48,7 @@ object JarRelease {
         return freed
     }
 
-    /** Links every class of the target jars, so no lazy load ever needs the files again. */
+    /** Links every class of the target jars, meaning no lazy load ever needs thwe files again */
     private fun preload() {
         val loader = JarRelease::class.java.classLoader
         for (file in files) {

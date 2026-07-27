@@ -1,33 +1,19 @@
 package ru.kirushkinx.selfdestruct.core.teardown
 
-import net.fabricmc.loader.api.FabricLoader
+import ru.kirushkinx.selfdestruct.util.Mods
 import ru.kirushkinx.selfdestruct.util.Reflect
-import su.catlean.api.addon.CatLeanAddon
 
 /** Drops catlean and its addon from ModMenu's maps and the loader's list. */
 object ModList {
 
     private const val MODMENU = "com.terraformersmc.modmenu.ModMenu"
     private const val LOADER = "net.fabricmc.loader.impl.FabricLoaderImpl"
-    private const val CLIENT = "catlean"
-    private const val ADDON_ENTRYPOINT = "catlean:addon"
 
     data class Report(val targeted: Int, val menu: Int, val loader: Int)
 
     fun hide(): Report {
-        val ids = catleanIds()
+        val ids = Mods.catleanIds()
         return Report(ids.size, fromModMenu(ids), fromLoader(ids))
-    }
-
-    // the client plus every mod that registers a catlean:addon entrypoint
-    fun catleanIds(): Set<String> {
-        val ids = linkedSetOf(CLIENT)
-        runCatching {
-            FabricLoader.getInstance()
-                .getEntrypointContainers(ADDON_ENTRYPOINT, CatLeanAddon::class.java)
-                .forEach { ids.add(it.provider.metadata.id) }
-        }
-        return ids
     }
 
     // ModMenu builds these once and reads them on every open

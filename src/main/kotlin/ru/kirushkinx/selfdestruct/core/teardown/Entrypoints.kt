@@ -1,5 +1,6 @@
 package ru.kirushkinx.selfdestruct.core.teardown
 
+import ru.kirushkinx.selfdestruct.util.Mods
 import ru.kirushkinx.selfdestruct.util.Reflect
 
 /** Drops the loader's cached entrypoint containers, which keep the client's initializers and this addon alive. */
@@ -12,7 +13,7 @@ object Entrypoints {
         val loader = Reflect.staticValue(type, "INSTANCE") ?: return 0
         val storage = Reflect.value(loader, "entrypointStorage") ?: return 0
         val map = Reflect.value(storage, "entryMap") as? MutableMap<*, *> ?: return 0
-        val ids = ModList.catleanIds()
+        val ids = Mods.catleanIds()
         var removed = 0
         for (entries in map.values.toList()) {
             val list = entries as? MutableList<*> ?: continue
